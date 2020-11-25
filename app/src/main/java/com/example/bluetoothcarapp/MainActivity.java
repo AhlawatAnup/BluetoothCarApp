@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(mBtAdapter.isEnabled()){
 
-                 // displayDeviceList();
-                  connectionToController();
+                  displayDeviceList();
+                  //connectionToController();
                    // new FragmentPairedDeviceDialog().show(getSupportFragmentManager(),"Paired Device Dialog");
                 }
                 else{
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         final ListView listView=new ListView(MainActivity.this);
 
         final List<String> deviceName= new ArrayList<>();
-        List<String> deviceAddress= new ArrayList<>();
+        final List<String> deviceAddress= new ArrayList<>();
 
         Set<BluetoothDevice> btDevices =mBtAdapter.getBondedDevices();
         for(BluetoothDevice btDevice: btDevices){
@@ -136,15 +136,23 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
         builder.setView(listView);
-        AlertDialog dialog=builder.create();
+        final AlertDialog dialog=builder.create();
         dialog.show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(deviceAddress.get(position));
+                connectionToController(deviceAddress.get(position));
+                dialog.dismiss();
+            }
+        });
 
 
     }
 
     //connection and data stream to controller
-    public void connectionToController(){
-        String connectedDeviceMAC="98:D3:37:00:BD:7A";
+    public void connectionToController(String connectedDeviceMAC){
+        //String connectedDeviceMAC="98:D3:37:00:BD:7A";
 
         BluetoothDevice connDevice = mBtAdapter.getRemoteDevice(connectedDeviceMAC); //setting up connection to micro-controller BT
 
