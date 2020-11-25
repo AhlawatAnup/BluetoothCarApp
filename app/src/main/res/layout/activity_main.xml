@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#43464b"
+    android:layout_gravity="center_vertical"
+    >
+
+    <LinearLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+
+        >
+        <Button
+            android:id="@+id/status_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="STATUS"
+            android:onClick="resetStatus"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+        <Button
+            android:id="@+id/connect_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Connect to the car"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+
+        <Button
+            android:id="@+id/forward_button"
+            android:layout_height="70dp"
+            android:layout_width="70dp"
+            android:text="F"
+            android:onClick="onF"
+            android:layout_gravity="center|center_horizontal"
+
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+            <Button
+                android:id="@+id/left_button"
+                android:layout_height="70dp"
+                android:layout_width="70dp"
+                android:text="L"
+                android:onClick="onL"
+                android:layout_gravity="center|center_horizontal"
+
+                />
+
+            <Button
+                android:id="@+id/right_button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="70dp"
+                android:onClick="onR"
+                android:layout_gravity="center|center_horizontal"
+                android:text="R"
+
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/backward_button"
+            android:layout_height="70dp"
+            android:layout_width="70dp"
+            android:text="B"
+            android:onClick="onB"
+            android:layout_gravity="center|center_horizontal"
+
+            />
+
+    </LinearLayout>
+</LinearLayout>
