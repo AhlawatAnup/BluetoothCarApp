@@ -16,9 +16,13 @@
         >
         <Button
             android:id="@+id/status_button"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_width="wrap_content"
-            android:text="STATUS"
+            android:text="Status"
+            android:textColor="#FFFFFF"
+            android:background="@color/colorRed"
+            android:paddingHorizontal="20dp"
+            android:layout_margin="5dp"
             android:onClick="resetStatus"
             android:layout_gravity="center_horizontal"
 
@@ -26,9 +30,12 @@
 
         <Button
             android:id="@+id/connect_button"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_width="wrap_content"
             android:text="Connect to the car"
+            android:textColor="#FFFFFF"
+            android:background="@color/colorRed"
+            android:paddingHorizontal="20dp"
             android:layout_gravity="center_horizontal"
 
             />

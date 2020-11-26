@@ -3,12 +3,14 @@ package com.example.bluetoothcarapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import static android.graphics.Color.*;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT=0;
@@ -42,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         statusBtn=findViewById(R.id.status_button);
+
         connectBtn=findViewById(R.id.connect_button);
+
         //getting direction button
         forwardBtn=findViewById(R.id.forward_button);
         backwardBtn=findViewById(R.id.backward_button);
@@ -61,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
                   displayDeviceList();
                   //connectionToController();
-                   // new FragmentPairedDeviceDialog().show(getSupportFragmentManager(),"Paired Device Dialog");
                 }
                 else{
                     bluetoothInstances();
@@ -79,9 +84,13 @@ public class MainActivity extends AppCompatActivity {
             case REQUEST_ENABLE_BT:
                 if(resultCode==RESULT_OK){
                     statusBtn.setText("Bluetooth ON");
+                    statusBtn.setBackgroundColor(GREEN);
+
                 }
                 else{
                     statusBtn.setText("BT permission Denied");
+                    statusBtn.setBackgroundColor(RED);
+
                 }
 
                 break;
@@ -98,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         else
         if(mBtAdapter.isEnabled()){
             statusBtn.setText("Bluetooth ON");
+            statusBtn.setBackgroundColor(GREEN);
+
+
+
         }
         else
 
@@ -141,9 +154,12 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 System.out.println(deviceAddress.get(position));
+
                 connectionToController(deviceAddress.get(position));
                 dialog.dismiss();
+
             }
         });
 
@@ -181,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             connectBtn.setText("Connected to the car");
+            connectBtn.setBackgroundColor(GREEN);
 
             Toast.makeText(this, "Connected to HC-05", Toast.LENGTH_SHORT).show();
 
@@ -193,22 +210,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void directionButtons(char direction){
-        int i=1;
+    public void directionButtons(char direction) {
+        int i = 1;
 
-
+        try {
             if (btSocket.isConnected()) {
-                try {
-                    OutputStream outputStream = btSocket.getOutputStream();
-                    outputStream.write(direction);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                OutputStream outputStream = btSocket.getOutputStream();
+                outputStream.write(direction);
             } else {
                 Toast.makeText(this, "Connected to the car first", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            Toast.makeText(this, "Car may not connected", Toast.LENGTH_SHORT).show();
         }
 
+    }
 
     public void closeConnectionToController(){
         try {
